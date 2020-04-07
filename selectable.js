@@ -981,8 +981,10 @@
 
             if (node !== this.container) {
                 var item = this.get(node);
-                item.selecting = true;
-                classList.add(node, o.classes.selecting);
+                if (typeof item !== 'undefined') {
+                    item.selecting = true;
+                    classList.add(node, o.classes.selecting);
+                }
             }
 
             if (o.autoRefresh) {
