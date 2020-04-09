@@ -366,9 +366,9 @@
             } else if (container instanceof Element && container.nodeName) {
                 this.container = container;
             }
-
-            classList.add(this.container, o.classes.container);
-
+            if (this.container) {
+                classList.add(this.container, o.classes.container);
+            }
             if (old) {
                 classList.remove(old, o.classes.container);
             }
