@@ -1288,8 +1288,11 @@
          */
         _loadItems: function() {
             var o = this.config;
+
             if (this.container) {
                 this.nodes = [].slice.call(this.container.querySelectorAll("." + o.classes.selectable));
+            } else {
+                this.nodes = [];
             }
             this.items = [];
 
