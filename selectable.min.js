@@ -865,7 +865,9 @@
                 if (listener in this.listeners === false) return;
                 this.listeners[listener].splice(this.listeners[listener].indexOf(fn), 1);
             } else {
-                arguments[0].removeEventListener(arguments[1], arguments[2]);
+                if (arguments[0]) {
+                    arguments[0].removeEventListener(arguments[1], arguments[2]);
+                }
             }
         },
 
