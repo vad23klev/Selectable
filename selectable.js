@@ -1288,8 +1288,9 @@
          */
         _loadItems: function() {
             var o = this.config;
-
-            this.nodes = [].slice.call(this.container.querySelectorAll("." + o.classes.selectable));
+            if (this.container) {
+                this.nodes = [].slice.call(this.container.querySelectorAll("." + o.classes.selectable));
+            }
             this.items = [];
 
             if (this.nodes.length) {
