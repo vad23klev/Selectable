@@ -195,7 +195,11 @@
             if (isCollection(o.filter)) {
                 this.nodes = [].slice.call(o.filter);
             } else if (typeof o.filter === "string") {
-                this.nodes = [].slice.call(this.container.querySelectorAll(o.filter));
+                if(this.container) {
+                    this.nodes = [].slice.call(this.container.querySelectorAll(o.filter));
+                } else {
+                    this.nodes = [];
+                }
             }
 
             // activate items
@@ -233,18 +237,29 @@
         refresh: function() {
             var ww = window.innerWidth;
             var wh = window.innerHeight;
-            var x = this.bodyContainer ? window.pageXOffset : this.container.scrollLeft;
-            var y = this.bodyContainer ? window.pageYOffset : this.container.scrollTop;
+            var x = this.bodyContainer || !this.container ? window.pageXOffset : this.container.scrollLeft;
+            var y = this.bodyContainer || !this.container ? window.pageYOffset : this.container.scrollTop;
 
-            this.offsetWidth = this.container.offsetWidth;
-            this.offsetHeight = this.container.offsetHeight;
-            this.clientWidth = this.container.clientWidth;
-            this.clientHeight = this.container.clientHeight;
-            this.scrollWidth = this.container.scrollWidth;
-            this.scrollHeight = this.container.scrollHeight;
+            this.offsetWidth = this.container ? this.container.offsetWidth : ww;
+            this.offsetHeight = this.container ? this.container.offsetHeight : wh;
+            this.clientWidth = this.container ? this.container.clientWidth : ww;
+            this.clientHeight = this.container ? this.container.clientHeight : wh;
+            this.scrollWidth = this.container ? this.container.scrollWidth : ww;
+            this.scrollHeight = this.container ? this.container.scrollHeight : wh;
 
             // get the parent container DOMRect
-            this.boundingRect = _rect(this.container);
+            if (this.container) {
+                this.boundingRect = _rect(this.container);
+            } else {
+                this.boundingRect = {
+                    x1: 0,
+                    x2: ww,
+                    y1: 0,
+                    y2: wh,
+                    height: wh,
+                    width: ww
+                };
+            }
 
             if (this.bodyContainer) {
                 this.boundingRect.x2 = ww;
@@ -383,8 +398,8 @@
                         this.container.style.position = "relative"
                     }
                 }
-            }
 
+            }
             this.bind();
         },
 
@@ -797,8 +812,9 @@
                 this.canMeta = keys.indexOf("metaKey") >= 0;
 
                 this.bind();
-
-                classList.add(this.container, this.config.classes.container);
+                if (this.container) {
+                    classList.add(this.container, this.config.classes.container);
+                }
 
                 this.emit(this.v[1] < 15 ? "selectable.enable" : "enabled");
             }
