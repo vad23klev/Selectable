@@ -188,8 +188,8 @@
             this.setContainer();
 
             this.scroll = {
-                x: this.bodyContainer ? window.pageXOffset : this.container.scrollLeft,
-                y: this.bodyContainer ? window.pageYOffset : this.container.scrollTop
+                x: this.bodyContainer || !this.container ? window.pageXOffset : this.container.scrollLeft,
+                y: this.bodyContainer || !this.container ? window.pageYOffset : this.container.scrollTop
             };
 
             if (isCollection(o.filter)) {
