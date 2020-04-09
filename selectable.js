@@ -368,20 +368,20 @@
             }
             if (this.container) {
                 classList.add(this.container, o.classes.container);
-            }
-            if (old) {
-                classList.remove(old, o.classes.container);
-            }
+                if (old) {
+                    classList.remove(old, o.classes.container);
+                }
 
-            this.bodyContainer = this.container === document.body;
+                this.bodyContainer = this.container === document.body;
 
-            this._loadItems();
+                this._loadItems();
 
-            if (this.autoscroll) {
-                var style = _css(this.container);
+                if (this.autoscroll) {
+                    var style = _css(this.container);
 
-                if (style.position === "static" && !this.bodyContainer) {
-                    this.container.style.position = "relative"
+                    if (style.position === "static" && !this.bodyContainer) {
+                        this.container.style.position = "relative"
+                    }
                 }
             }
 
