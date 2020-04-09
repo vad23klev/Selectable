@@ -849,7 +849,9 @@
                 this.listeners[listener] = this.listeners[listener] || [];
                 this.listeners[listener].push(fn);
             } else {
-                arguments[0].addEventListener(arguments[1], arguments[2], false);
+                if (arguments[0]) {
+                    arguments[0].addEventListener(arguments[1], arguments[2], false);
+                }
             }
         },
 
