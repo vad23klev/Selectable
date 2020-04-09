@@ -1686,8 +1686,8 @@
      * @param  {String|Object}
      */
     function _css(i, t) {
-        var e = i.style;
         if (i) {
+            var e = i.style;
             if (void 0 === t) return window.getComputedStyle(i);
             if (isObject(t))
                 for (var n in t) n in e || (n = "-webkit-" + n), i.style[n] = t[n] + ("string" == typeof t[n] ? "" : "opacity" === n ? "" : "px")
